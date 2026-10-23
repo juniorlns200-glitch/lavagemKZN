@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>KAIZEN | Calculadora de Lavagem</title>
 
+    <meta
+        name="description"
+        content="Calculadora interna KAIZEN para controle de lavagens, taxas e comissões."
+    >
+
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -16,141 +21,243 @@
 
         <!-- CABEÇALHO -->
         <header class="header">
-            <div class="logo">
-                <span class="logo-symbol">K</span>
-                <span class="logo-name">KAIZEN</span>
+            <div class="brand">
+                <div class="brand-icon">K</div>
+
+                <div class="brand-text">
+                    <h1>KAIZEN</h1>
+                    <p>SISTEMA INTERNO</p>
+                </div>
             </div>
 
-            <div class="header-line"></div>
-
-            <h1>CALCULADORA DE LAVAGEM</h1>
-
-            <p class="subtitle">
-                SISTEMA INTERNO &bull; CALCULADORA DE LAVAGEM
-            </p>
+            <div class="status">
+                <span class="status-dot"></span>
+                CALCULADORA ATIVA
+            </div>
         </header>
 
-        <!-- CAMPO DE VALOR -->
-        <section class="input-section">
+        <!-- TÍTULO -->
+        <section class="intro">
+            <span class="eyebrow">CONTROLE DE OPERAÇÕES</span>
 
-            <label for="valor">VALOR DA LAVAGEM</label>
+            <h2>Calculadora de <span>Lavagem</span></h2>
+
+            <p>
+                Informe o valor da operação, selecione a modalidade
+                e confira automaticamente a divisão dos valores.
+            </p>
+        </section>
+
+        <!-- VALOR TOTAL -->
+        <section class="panel input-panel">
+            <label for="valor">VALOR TOTAL DA LAVAGEM</label>
 
             <div class="input-wrapper">
-                <span class="currency">R$</span>
+                <span class="currency-symbol">R$</span>
 
                 <input
-                    type="number"
+                    type="text"
                     id="valor"
+                    inputmode="decimal"
+                    autocomplete="off"
                     placeholder="0,00"
-                    min="0"
-                    step="any"
+                    aria-describedby="valor-ajuda"
                 >
             </div>
 
-            <p class="input-hint">
-                Digite o valor para visualizar os dois resultados.
-            </p>
+            <small id="valor-ajuda">
+                Você pode informar valores inteiros ou com centavos.
+            </small>
+        </section>
+
+        <!-- MODALIDADES -->
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">ETAPA 01</span>
+                    <h3>Selecione a modalidade</h3>
+                </div>
+
+                <span class="section-number">01 / 03</span>
+            </div>
+
+            <div class="modalities">
+
+                <button
+                    type="button"
+                    class="mode-card active"
+                    data-mode="parceria"
+                    aria-pressed="true"
+                >
+                    <span class="mode-top">
+                        <span class="mode-name">Parceria</span>
+                        <span class="mode-check">✓</span>
+                    </span>
+
+                    <span class="mode-percentage">25%</span>
+                    <span class="mode-description">Parte da facção</span>
+                </button>
+
+                <button
+                    type="button"
+                    class="mode-card"
+                    data-mode="pista"
+                    aria-pressed="false"
+                >
+                    <span class="mode-top">
+                        <span class="mode-name">Pista</span>
+                        <span class="mode-check">✓</span>
+                    </span>
+
+                    <span class="mode-percentage">30%</span>
+                    <span class="mode-description">Parte da facção</span>
+                </button>
+
+                <button
+                    type="button"
+                    class="mode-card"
+                    data-mode="membro"
+                    aria-pressed="false"
+                >
+                    <span class="mode-top">
+                        <span class="mode-name">Membro</span>
+                        <span class="mode-check">✓</span>
+                    </span>
+
+                    <span class="mode-percentage">15%</span>
+                    <span class="mode-description">Parte da facção</span>
+                </button>
+
+            </div>
+        </section>
+
+        <!-- COMISSÃO -->
+        <section class="panel commission-panel" id="commissionPanel">
+
+            <div class="commission-info">
+                <span class="eyebrow">OPÇÃO ADICIONAL</span>
+                <h3>Comissão do lavador</h3>
+
+                <p>
+                    Retira 20% do saldo da facção após o desconto da máquina.
+                </p>
+            </div>
+
+            <label class="toggle">
+                <input type="checkbox" id="comissao">
+
+                <span class="toggle-track">
+                    <span class="toggle-thumb"></span>
+                </span>
+
+                <span class="toggle-label" id="commissionStatus">
+                    Desativada
+                </span>
+            </label>
 
         </section>
 
+        <p class="commission-notice" id="commissionNotice">
+            A comissão está disponível apenas para Parceria e Pista.
+        </p>
+
         <!-- RESULTADOS -->
-        <section class="resultados">
+        <section class="section results-section">
 
-            <!-- PARCERIA -->
-            <article class="card parceria">
-
-                <div class="card-header">
-                    <div>
-                        <span class="card-label">MODALIDADE 01</span>
-                        <h2>PARCERIA</h2>
-                    </div>
-
-                    <div class="percentage">
-                        25<span>%</span>
-                    </div>
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">ETAPA 02</span>
+                    <h3>Resumo da operação</h3>
                 </div>
 
-                <div class="card-divider"></div>
+                <span class="result-badge" id="selectedMode">
+                    PARCERIA
+                </span>
+            </div>
 
-                <div class="info">
-                    <span>Valor inicial</span>
-                    <strong id="inicialParceria">R$ 0,00</strong>
+            <!-- RESULTADO PRINCIPAL -->
+            <div class="main-result">
+                <div class="main-result-info">
+                    <span>VALOR FINAL PARA O CAIXA DA FACÇÃO</span>
+                    <p id="finalDescription">
+                        Após taxas e descontos aplicáveis
+                    </p>
                 </div>
 
-                <div class="info">
-                    <span>Desconto da facção</span>
-                    <strong id="descontoParceria">R$ 0,00</strong>
+                <strong id="valorFinal">R$ 0,00</strong>
+            </div>
+
+            <!-- DETALHAMENTO -->
+            <div class="breakdown">
+
+                <div class="breakdown-row">
+                    <span>Valor total da lavagem</span>
+                    <strong id="valorTotal">R$ 0,00</strong>
                 </div>
 
-                <div class="total">
-                    <span>VALOR RESTANTE</span>
-                    <strong id="restanteParceria">R$ 0,00</strong>
+                <div class="breakdown-row">
+                    <span>
+                        Parte da facção
+                        <small id="percentualFac">25%</small>
+                    </span>
+
+                    <strong id="parteFac">R$ 0,00</strong>
                 </div>
 
-                <div class="card-footer">
-                    <span class="status-dot"></span>
-                    TAXA DE 25% APLICADA
+                <div class="breakdown-row">
+                    <span>
+                        Parte do parceiro / membro
+                        <small id="percentualParceiro">75%</small>
+                    </span>
+
+                    <strong id="parteParceiro">R$ 0,00</strong>
                 </div>
 
-            </article>
+                <div class="breakdown-row deduction">
+                    <span>
+                        Taxa da máquina
+                        <small>5% do valor total</small>
+                    </span>
 
-            <!-- PISTA -->
-            <article class="card pista">
-
-                <div class="card-header">
-                    <div>
-                        <span class="card-label">MODALIDADE 02</span>
-                        <h2>PISTA</h2>
-                    </div>
-
-                    <div class="percentage">
-                        30<span>%</span>
-                    </div>
+                    <strong id="taxaMaquina">− R$ 0,00</strong>
                 </div>
 
-                <div class="card-divider"></div>
+                <div class="breakdown-row deduction" id="commissionRow" hidden>
+                    <span>
+                        Comissão do lavador
+                        <small>20% do saldo da facção após a máquina</small>
+                    </span>
 
-                <div class="info">
-                    <span>Valor inicial</span>
-                    <strong id="inicialPista">R$ 0,00</strong>
+                    <strong id="valorComissao">− R$ 0,00</strong>
                 </div>
 
-                <div class="info">
-                    <span>Desconto da facção</span>
-                    <strong id="descontoPista">R$ 0,00</strong>
+                <div class="breakdown-divider"></div>
+
+                <div class="breakdown-row subtotal">
+                    <span>Saldo da facção após a máquina</span>
+                    <strong id="saldoAposMaquina">R$ 0,00</strong>
                 </div>
 
-                <div class="total">
-                    <span>VALOR RESTANTE</span>
-                    <strong id="restantePista">R$ 0,00</strong>
+                <div class="breakdown-row final-row">
+                    <span>Valor líquido para a facção</span>
+                    <strong id="valorLiquido">R$ 0,00</strong>
                 </div>
 
-                <div class="card-footer">
-                    <span class="status-dot"></span>
-                    TAXA DE 30% APLICADA
-                </div>
-
-            </article>
+            </div>
 
         </section>
 
         <!-- RODAPÉ -->
         <footer class="footer">
-            <div class="footer-line"></div>
-
-            <p>
+            <div class="footer-brand">
                 <strong>KAIZEN</strong>
-                <span class="footer-separator">/</span>
-                SISTEMA INTERNO
-            </p>
+                <span>CONTROLE • PRECISÃO • RESULTADO</span>
+            </div>
 
-            <span class="footer-version">CALCULADORA DE LAVAGEM</span>
+            <p>Ferramenta interna de controle operacional.</p>
         </footer>
 
     </main>
 
-    <script src="script.js"></script>
-
 </body>
-
 </html>
