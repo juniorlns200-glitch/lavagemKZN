@@ -1,0 +1,625 @@
+/* ========================================
+   KAIZEN — CALCULADORA DE LAVAGEM
+   Identidade: Preto, Branco e Cinza
+======================================== */
+
+/* CONFIGURAÇÕES GERAIS */
+
+:root {
+    --background: #080808;
+    --surface: #101010;
+    --card: #141414;
+
+    --white: #ffffff;
+    --text: #e5e5e5;
+    --muted: #858585;
+
+    --border: #292929;
+    --border-light: #393939;
+
+    --radius: 14px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+
+    background:
+        radial-gradient(
+            ellipse at top,
+            #191919 0%,
+            #0c0c0c 45%,
+            #050505 100%
+        );
+
+    color: var(--white);
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* CONTAINER PRINCIPAL */
+
+.container {
+    position: relative;
+
+    width: 100%;
+    max-width: 900px;
+
+    padding: 42px;
+
+    background: rgba(15, 15, 15, 0.97);
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
+
+    animation: aparecer 0.45s ease;
+}
+
+.container::before {
+    content: "";
+
+    position: absolute;
+
+    top: -1px;
+    left: 35%;
+
+    width: 30%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #ffffff,
+        transparent
+    );
+
+    opacity: 0.7;
+}
+
+/* CABEÇALHO */
+
+.header {
+    text-align: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 11px;
+
+    margin-bottom: 28px;
+}
+
+.logo-symbol {
+    width: 39px;
+    height: 39px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--white);
+    color: #080808;
+
+    border-radius: 8px;
+
+    font-size: 23px;
+    font-weight: 900;
+    font-style: italic;
+}
+
+.logo-name {
+    color: var(--white);
+
+    font-size: 24px;
+    font-weight: 800;
+
+    letter-spacing: 4px;
+}
+
+.header-line {
+    width: 50px;
+    height: 2px;
+
+    margin: 0 auto 25px;
+
+    background: #777777;
+}
+
+h1 {
+    color: var(--white);
+
+    font-size: clamp(21px, 4vw, 29px);
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+.subtitle {
+    margin-top: 12px;
+    margin-bottom: 38px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: 1.6px;
+    line-height: 1.8;
+}
+
+/* CAMPO DE VALOR */
+
+.input-section {
+    margin-bottom: 32px;
+}
+
+.input-section label {
+    display: block;
+
+    margin-bottom: 12px;
+
+    color: #bdbdbd;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 62px;
+
+    padding: 0 19px;
+
+    background: #090909;
+
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.input-wrapper:focus-within {
+    border-color: #a0a0a0;
+
+    box-shadow:
+        0 0 0 3px rgba(255, 255, 255, 0.05);
+}
+
+.currency {
+    margin-right: 14px;
+
+    color: #999999;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+input {
+    width: 100%;
+    height: 100%;
+
+    background: transparent;
+
+    border: none;
+    outline: none;
+
+    color: var(--white);
+
+    font-family: inherit;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+input::placeholder {
+    color: #4e4e4e;
+    font-weight: 400;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+}
+
+input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.input-hint {
+    margin-top: 11px;
+
+    color: #686868;
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* ÁREA DE RESULTADOS */
+
+.resultados {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+/* CARDS */
+
+.card {
+    position: relative;
+
+    min-width: 0;
+    padding: 25px 23px 19px;
+
+    background: linear-gradient(
+        145deg,
+        #191919,
+        #111111
+    );
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+
+    border-color: #505050;
+}
+
+/* DETALHE SUPERIOR */
+
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #777777
+    );
+
+    opacity: 0.65;
+}
+
+/* CABEÇALHO DOS CARDS */
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 22px;
+}
+
+.card-label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #777777;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 1.4px;
+}
+
+.card h2 {
+    color: var(--white);
+
+    font-size: 21px;
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+}
+
+/* PORCENTAGEM */
+
+.percentage {
+    display: flex;
+    align-items: baseline;
+
+    color: var(--white);
+
+    font-size: 29px;
+    font-weight: 800;
+
+    letter-spacing: -1px;
+}
+
+.percentage span {
+    margin-left: 2px;
+
+    color: #a0a0a0;
+
+    font-size: 16px;
+}
+
+/* DIVISÓRIA */
+
+.card-divider {
+    width: 100%;
+    height: 1px;
+
+    margin-bottom: 22px;
+
+    background: #303030;
+}
+
+/* INFORMAÇÕES */
+
+.info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-bottom: 23px;
+}
+
+.info span {
+    color: var(--muted);
+
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.info strong {
+    color: #e4e4e4;
+
+    font-size: 17px;
+    font-weight: 600;
+
+    overflow-wrap: anywhere;
+
+    font-variant-numeric: tabular-nums;
+}
+
+/* VALOR RESTANTE */
+
+.total {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #303030;
+}
+
+.total span {
+    color: #aaaaaa;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1.3px;
+}
+
+.total strong {
+    color: var(--white);
+
+    font-size: clamp(21px, 3vw, 26px);
+    font-weight: 800;
+
+    letter-spacing: -0.6px;
+
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums;
+}
+
+/* RODAPÉ DOS CARDS */
+
+.card-footer {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 24px;
+    padding-top: 15px;
+
+    border-top: 1px solid #242424;
+
+    color: #777777;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+
+    flex-shrink: 0;
+
+    background: #bdbdbd;
+
+    border-radius: 50%;
+}
+
+/* RODAPÉ PRINCIPAL */
+
+.footer {
+    margin-top: 35px;
+
+    text-align: center;
+}
+
+.footer-line {
+    width: 100%;
+    height: 1px;
+
+    margin-bottom: 22px;
+
+    background: #252525;
+}
+
+.footer p {
+    color: #777777;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: 1.5px;
+}
+
+.footer p strong {
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.footer-separator {
+    margin: 0 8px;
+
+    color: #505050;
+}
+
+.footer-version {
+    display: block;
+
+    margin-top: 10px;
+
+    color: #505050;
+
+    font-size: 9px;
+
+    letter-spacing: 1.2px;
+}
+
+/* ANIMAÇÃO DE ENTRADA */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 650px) {
+    body {
+        align-items: flex-start;
+
+        padding: 20px 12px;
+    }
+
+    .container {
+        padding: 28px 18px;
+
+        border-radius: 13px;
+    }
+
+    .logo {
+        margin-bottom: 24px;
+    }
+
+    .logo-name {
+        font-size: 22px;
+    }
+
+    h1 {
+        font-size: 21px;
+        letter-spacing: 0.8px;
+    }
+
+    .subtitle {
+        margin-bottom: 30px;
+
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+    .resultados {
+        grid-template-columns: 1fr;
+
+        gap: 17px;
+    }
+
+    .card {
+        padding: 24px 22px 19px;
+    }
+
+    .card h2 {
+        font-size: 20px;
+    }
+
+    .percentage {
+        font-size: 28px;
+    }
+
+    .total strong {
+        font-size: 25px;
+    }
+
+    .footer {
+        margin-top: 28px;
+    }
+}
+
+/* ACESSIBILIDADE */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}

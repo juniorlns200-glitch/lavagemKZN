@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KAIZEN | Calculadora de Lavagem</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <!-- CABEÇALHO -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-symbol">K</span>
+                <span class="logo-name">KAIZEN</span>
+            </div>
+
+            <div class="header-line"></div>
+
+            <h1>CALCULADORA DE LAVAGEM</h1>
+
+            <p class="subtitle">
+                SISTEMA INTERNO &bull; CALCULADORA DE LAVAGEM
+            </p>
+        </header>
+
+        <!-- CAMPO DE VALOR -->
+        <section class="input-section">
+
+            <label for="valor">VALOR DA LAVAGEM</label>
+
+            <div class="input-wrapper">
+                <span class="currency">R$</span>
+
+                <input
+                    type="number"
+                    id="valor"
+                    placeholder="0,00"
+                    min="0"
+                    step="any"
+                >
+            </div>
+
+            <p class="input-hint">
+                Digite o valor para visualizar os dois resultados.
+            </p>
+
+        </section>
+
+        <!-- RESULTADOS -->
+        <section class="resultados">
+
+            <!-- PARCERIA -->
+            <article class="card parceria">
+
+                <div class="card-header">
+                    <div>
+                        <span class="card-label">MODALIDADE 01</span>
+                        <h2>PARCERIA</h2>
+                    </div>
+
+                    <div class="percentage">
+                        25<span>%</span>
+                    </div>
+                </div>
+
+                <div class="card-divider"></div>
+
+                <div class="info">
+                    <span>Valor inicial</span>
+                    <strong id="inicialParceria">R$ 0,00</strong>
+                </div>
+
+                <div class="info">
+                    <span>Desconto da facção</span>
+                    <strong id="descontoParceria">R$ 0,00</strong>
+                </div>
+
+                <div class="total">
+                    <span>VALOR RESTANTE</span>
+                    <strong id="restanteParceria">R$ 0,00</strong>
+                </div>
+
+                <div class="card-footer">
+                    <span class="status-dot"></span>
+                    TAXA DE 25% APLICADA
+                </div>
+
+            </article>
+
+            <!-- PISTA -->
+            <article class="card pista">
+
+                <div class="card-header">
+                    <div>
+                        <span class="card-label">MODALIDADE 02</span>
+                        <h2>PISTA</h2>
+                    </div>
+
+                    <div class="percentage">
+                        30<span>%</span>
+                    </div>
+                </div>
+
+                <div class="card-divider"></div>
+
+                <div class="info">
+                    <span>Valor inicial</span>
+                    <strong id="inicialPista">R$ 0,00</strong>
+                </div>
+
+                <div class="info">
+                    <span>Desconto da facção</span>
+                    <strong id="descontoPista">R$ 0,00</strong>
+                </div>
+
+                <div class="total">
+                    <span>VALOR RESTANTE</span>
+                    <strong id="restantePista">R$ 0,00</strong>
+                </div>
+
+                <div class="card-footer">
+                    <span class="status-dot"></span>
+                    TAXA DE 30% APLICADA
+                </div>
+
+            </article>
+
+        </section>
+
+        <!-- RODAPÉ -->
+        <footer class="footer">
+            <div class="footer-line"></div>
+
+            <p>
+                <strong>KAIZEN</strong>
+                <span class="footer-separator">/</span>
+                SISTEMA INTERNO
+            </p>
+
+            <span class="footer-version">CALCULADORA DE LAVAGEM</span>
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
